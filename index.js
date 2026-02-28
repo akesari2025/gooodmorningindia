@@ -1,808 +1,102 @@
 // ============================================
-// BADGE CONFIGURATION & DATA (1000 Badges)
+// BADGE DATA (from PHP/database or fallback)
 // ============================================
-const usernames = [
-    "@MorningYogi",
-    "@SunriseSeeker",
-    "@TeaLover",
-    "@IndiaBeautiful",
-    "@CulturalVibes",
-    "@NatureWalk",
-    "@GoodVibesOnly",
-    "@DawnChaser",
-    "@MindfulMorning",
-    "@SaffronSoul",
-    "@CoastalDreams",
-    "@MountainCall",
-    "@CityWalker",
-    "@LandscapeHunter",
-    "@SilentObserver",
-    "@PhotographyMind",
-    "@TravelDreamer",
-    "@FoodExplorer",
-    "@ArtisticEye",
-    "@MusicEchos",
-    "@StoryTeller",
-    "@PoetryFlow",
-    "@CreativeSpirit",
-    "@DancingHeart",
-    "@SmilingFace",
-    "@HappySoul",
-    "@LightBringer",
-    "@DayDreamer",
-    "@HopefulHeart",
-    "@UnityVibe",
-    "@CommunityFirst",
-    "@ConnectAlways",
-    "@SpreadJoy",
-    "@KindnessMatters",
-    "@EverSmiling",
-    "@BlessedMorning",
-    "@Grateful",
-    "@LifeCelebrant",
-    "@JourneySeeker",
-    "@WisdomSeeking",
-    "@SoulSearcher",
-    "@MorningGlory",
-    "@DawnLight",
-    "@CoffeeAddict",
-    "@NatureTherapy",
-    "@MindfulLiving",
-    "@HarmonySeeker",
-    "@PeaceKeeper",
-    "@JoyfulHeart",
-    "@SmileMore",
-    "@BeautifulMind",
-    "@DreamChaser",
-    "@LiveFully",
-    "@SpreadLove",
-    "@KindSoul",
-    "@CaringHeart",
-    "@WarmEmbrace",
-    "@GentleSpirit",
-    "@TrueFriend",
-    "@LoyalCompanion",
-    "@PositiveVibes",
-    "@GoodEnergy",
-    "@LightSeeker",
-    "@StarGazer",
-    "@MoonWalker",
-    "@SunChaser",
-    "@CloudDreamer",
-    "@RainDancer",
-    "@WindWhisperer",
-    "@EarthLover",
-    "@OceanWaves",
-    "@MountainPeaks",
-    "@ForestPath",
-    "@GardenBloom",
-    "@FlowerChild",
-    "@ButterflyDream",
-    "@BirdSong",
-    "@WildHeart",
-    "@FreeSpirit",
-    "@AdventureSeeker",
-    "@ExplorerMind",
-    "@TravelBug",
-    "@RoadTripper",
-    "@BackpackerLife",
-    "@NomadSoul",
-    "@VagabondHeart",
-    "@WanderlustDream",
-    "@MapReader",
-    "@PathFinder",
-    "@TrailBlazer",
-    "@Adventurous",
-    "@BoldHeart",
-    "@CourageFilled",
-    "@DaringMind",
-    "@RiskTaker",
-    "@BraveSoul",
-    "@StrongWill",
-    "@PowerfulSpirit",
-    "@InnerStrength",
-    "@SteadyHand",
-    "@FocusedMind",
-    "@DeterminedSoul",
-    "@PersistentHeart",
-    "@Unwavering",
-    "@ResilientSpirit",
-    "@SurvivorStrength",
-    "@OvercomerMind",
-    "@VictorySeeker",
-    "@SuccessMinded",
-    "@AmbitionDriven",
-    "@GoalGetter",
-    "@AchieverMind",
-    "@WinnerHeart",
-    "@ChampionSpirit",
-    "@TopperMind",
-    "@ElitePerformer",
-    "@ExcellenceSeeker",
-    "@PerfectionistHeart",
-    "@DetailOriented",
-    "@PrecisionMind",
-    "@MethodicalSpirit",
-    "@OrganizedSoul",
-    "@StructuredHeart",
-    "@PlannedLife",
-    "@StrategicMind",
-    "@TacticalThought",
-    "@SmartChoice",
-    "@WisdomSeeker",
-    "@KnowledgeHunter",
-    "@LearnerMind",
-    "@StudyBuddy",
-    "@BookwormHeart",
-    "@ReadingFanatic",
-    "@IntelligentSoul",
-    "@BrainPower",
-    "@MindGenius",
-    "@ThinkingDeep",
-    "@PhilosopherMind",
-    "@AnalyticalHeart",
-    "@LogicalSoul",
-    "@ReasonedThought",
-    "@RationalMind",
-    "@PracticalHeart",
-    "@CommonSense",
-    "@GroundedSpirit",
-    "@RealityCheck",
-    "@TruthSeeker",
-    "@AuthenticSoul",
-    "@GenuineHeart",
-    "@HonestMind",
-    "@IntegrityDriven",
-    "@MoralCompass",
-    "@EthicalHeart",
-    "@RightAction",
-    "@JusticeSeeker",
-    "@FairnessFirst",
-    "@EqualityMind",
-    "@UnityHeart",
-    "@HarmonySpirit",
-    "@BalanceSoul",
-    "@EquilibriumMind",
-    "@CenteredHeart",
-    "@ZenSpirit",
-    "@PeacefulMind",
-    "@TranquilSoul",
-    "@SerenitySeeker",
-    "@CalmWaters",
-    "@SilentMoment",
-    "@QuietThought",
-    "@StillMind",
-    "@RestfulHeart",
-    "@RelaxingSpirit",
-    "@LaidbackSoul",
-    "@EasyGoingMind",
-    "@ChillVibes",
-    "@LooseHeart",
-    "@FlexibleSpirit",
-    "@AdaptableMind",
-    "@OpenMinded",
-    "@ReceivingHeart",
-    "@WelcomingSpirit",
-    "@InclusiveSoul",
-    "@DiverseMind",
-    "@MulticulturalHeart",
-    "@GlobalVibes",
-    "@WorldMinded",
-    "@InternationalSpirit",
-    "@UniversalSoul",
-    "@CosmicMind",
-    "@InfinityHeart",
-    "@EternalSpirit",
-    "@TimelessSoul",
-    "@AncientWisdom",
-    "@HistoryLover",
-    "@LegacyMind",
-    "@HeritageSoul",
-    "@TraditionHeart",
-    "@ClassicSpirit",
-    "@VintageMind",
-    "@RetroSoul",
-    "@NostalgiaHeart",
-    "@MemoryKeeper",
-    "@StoryCollector",
-    "@TaleWeaver",
-    "@NarrativeMind",
-    "@FictionSoul",
-    "@ImaginaryHeart",
-    "@CreativeSpirit",
-    "@ArtisticMind",
-    "@DesignerSoul",
-    "@BeautyLover",
-    "@AestheticHeart",
-    "@VisualMind",
-    "@ColorfulSpirit",
-    "@VibrantSoul",
-    "@BrightMind",
-    "@ShiningHeart",
-    "@GlowingSpirit",
-    "@RadiantSoul",
-    "@LuminousMind",
-    "@SparklingSoul",
-    "@TwinkleHeart",
-    "@ShimmerSpirit",
-    "@GlitterMind",
-    "@GoldenSoul",
-    "@PreciousHeart",
-    "@JewelMind",
-    "@TreasureSoul",
-    "@RichHeart",
-    "@WealthySpirit",
-    "@AbundanceMind",
-    "@ProsperitySoul",
-    "@SuccessHeart",
-    "@ThrivingSpirit",
-    "@FlourishingMind",
-    "@BloomingSoul",
-    "@GrowingHeart",
-    "@DevelopingSpirit",
-    "@EvolvingMind",
-    "@TransformingSoul",
-    "@RenewalHeart",
-    "@RefreshSpirit",
-    "@RejuvenatedMind",
-    "@ReborSoul",
-    "@NewBeginning",
-    "@FreshStart",
-    "@CleanSlate",
-    "@SecondChance",
-    "@RestartButton",
-    "@ResetMind",
-    "@ReloadSoul",
-    "@RestoreHeart",
-    "@RescueSpirit",
-    "@SaveMind",
-    "@HealSoul",
-    "@CureHeart",
-    "@FixSpirit",
-    "@RepairMind",
-    "@MendSoul",
-    "@SootHeart",
-    "@ComfortSpirit",
-    "@ConsolesMind",
-    "@EaseSoul",
-    "@LightenHeart",
-    "@UnburdenSpirit",
-    "@FreeMind",
-    "@LiberateSoul",
-    "@ReleaseHeart",
-    "@LetGoSpirit",
-    "@SurrenderMind",
-    "@AcceptSoul",
-    "@AllowHeart",
-    "@PermitSpirit",
-    "@EnableMind",
-    "@EmpowerSoul",
-    "@StrengthHeart",
-    "@CapabilitySpirit",
-    "@AbilityMind",
-    "@SkillSoul",
-    "@TalentHeart",
-    "@GiftSpirit",
-    "@BlessingMind",
-    "@FavourSoul",
-    "@LuckHeart",
-    "@GoodFortuneSpirit",
-    "@ChanceMind",
-    "@OpportunitySoul",
-    "@PossibilityHeart",
-    "@PotentialSpirit",
-    "@PromiseMind",
-    "@HopeSoul",
-    "@OptimismHeart",
-    "@PositivitySpirit",
-    "@UpbeatMind",
-    "@CheerfullSoul",
-    "@HappyHeart",
-    "@JoyfulSpirit",
-    "@DelightMind",
-    "@PleasureSoul",
-    "@SatisfactionHeart",
-    "@ContentSpirit",
-    "@FulfilledMind",
-    "@CompletedSoul",
-    "@WholeheartedHeart",
-    "@EntireSpirit",
-    "@TotalMind",
-    "@FullSoul",
-    "@MaximumHeart",
-    "@UltimateSpirit",
-    "@SupremeMind",
-    "@PeakSoul",
-    "@TopnotchHeart",
-    "@ExcellentSpirit",
-    "@GreatMind",
-    "@WonderfulSoul",
-    "@MarvelouHeart",
-    "@AmazingSpirit",
-    "@FantasticMind",
-    "@TerrificSoul",
-    "@IncredibleHeart",
-    "@UnbelievableSpirit",
-    "@AstoundingMind",
-    "@ShockingSoul",
-    "@SurprisingHeart",
-    "@UnexpectedSpirit",
-    "@AstonishedMind",
-    "@AmazedSoul",
-    "@WonderstrickHeart",
-    "@AwestruckSpirit",
-    "@ReverentMind",
-    "@HumbleSoul",
-    "@ModestHeart",
-    "@SimpleSpirit",
-    "@PlainMind",
-    "@Unadorned Soul",
-    "@RawSoul",
-    "@AuthenticHeart",
-    "@RealSpirit",
-    "@TrueMind",
-    "@HonestSoul",
-    "@SincereHeart",
-    "@FrankSpirit",
-    "@CandidMind",
-    "@OpenSoul",
-    "@TransparentHeart",
-    "@ClearSpirit",
-    "@TranslucentMind",
-    "@BrilliantSoul",
-    "@SharpHeart",
-    "@KeenSpirit",
-    "@AlertMind",
-    "@AwareSoul",
-    "@ConsciousHeart",
-    "@PresentSpirit",
-    "@MindfulMind",
-    "@AttentiveSoul",
-    "@FocusedHeart",
-    "@ConcentratedSpirit",
-    "@IntenseMind",
-    "@PassionateSoul",
-    "@EnthusiasticHeart",
-    "@EagerSpirit",
-    "@KeeningMind",
-    "@DesirousSoul",
-    "@LongingHeart",
-    "@YearningSpirit",
-    "@CravingMind",
-    "@HungeringSoul",
-    "@StarvedHeart",
-    "@DepriveSpirit",
-    "@NeedingMind",
-    "@RequiringSoul",
-    "@DemandingHeart",
-    "@InsistingSpirit",
-    "@PersistentMind",
-    "@RepeatingsSoul",
-    "@DuplicatingHeart",
-    "@CopyingSpirit",
-    "@MirroringMind",
-    "@ReflectingSoul",
-    "@ReturnedHeart",
-    "@BackSpirit",
-    "@RearMind",
-    "@FollowingSoul",
-    "@ChangedHeart",
-    "@LinkedSpirit",
-    "@ConnectedMind",
-    "@IntertwiningsSoul",
-    "@InterlacingHeart",
-    "@MeshingSpirit",
-    "@WovenMind",
-    "@BlendedSoul",
-    "@FusedHeart",
-    "@MergedSpirit",
-    "@CombinedMind",
-    "@UnitedSoul",
-    "@JoinedHeart",
-    "@AttachedSpirit",
-    "@BondedMind",
-    "@TiedSoul",
-    "@FastenedHeart",
-    "@SecuredSpirit",
-    "@LockedMind",
-    "@ClosedSoul",
-    "@ShutHeart",
-    "@SealedSpirit",
-    "@ClosetedMind",
-    "@IsolatedSoul",
-    "@SeparatedHeart",
-    "@DividedSpirit",
-    "@SplitMind",
-    "@FracturedSoul",
-    "@BrokenHeart",
-    "@ShatteredSpirit",
-    "@CrackedMind",
-    "@DamagedSoul",
-    "@HurtHeart",
-    "@PainedSpirit",
-    "@AchingMind",
-    "@SorrowingSoul",
-    "@SadHeart",
-    "@MournfulSpirit",
-    "@GriefMind",
-    "@LamentingSoul",
-    "@WailingHeart",
-    "@CryingSpirit",
-    "@WeelingMind",
-    "@TearingSoul",
-    "@RippingHeart",
-    "@TearingSpirit",
-    "@RentMind",
-    "@SunderingSoul",
-    "@PartingHeart",
-    "@LeavingSpirit",
-    "@GoingMind",
-    "@DepartingSoul",
-    "@ExitingHeart",
-    "@WithdrawingSpirit",
-    "@RecoilingMind",
-    "@ShrinkingSoul",
-    "@CurlingHeart",
-    "@BundlingSpirit",
-    "@RollingMind",
-    "@TwistingSoul",
-    "@SpirallingHeart",
-    "@TurningSpirit",
-    "@RotatingMind",
-    "@SwingingSoul",
-    "@SwayingHeart",
-    "@RockingSpirit",
-    "@ShakingMind",
-    "@TremblingSoul",
-    "@QuiveringHeart",
-    "@JitteringSpirit",
-    "@FigetingMind",
-    "@RestlessSoul",
-    "@AnxiousHeart",
-    "@WorriedSpirit",
-    "@UneasyMind",
-    "@FretfulSoul",
-    "@DistressedHeart",
-    "@AgonizedSpirit",
-    "@TormentedMind",
-    "@SufferingSoul",
-    "@PlaguedHeart",
-    "@HauntedSpirit",
-    "@StalkedMind",
-    "@FollowedSoul",
-    "@PursuedHeart",
-    "@HuntedSpirit",
-    "@ChasedMind",
-    "@FleddingSoul",
-    "@RunningHeart",
-    "@EscapingSpirit",
-    "@BreakingMind",
-    "@FreeingSoul",
-    "@ReleasingHeart",
-    "@UnloosingSpirit",
-    "@UnbindingMind",
-    "@UnleashedSoul",
-    "@UnchainedHeart",
-    "@UnshackledSpirit",
-    "@FreedomMind",
-    "@LibertySoul",
-    "@IndependenceHeart",
-    "@AutonomySpirit",
-    "@SelfRulesMind",
-    "@SelfGoverningSoul",
-    "@SelfRulledHeart",
-    "@SelfDeterminedSpirit",
-    "@SelfDirectedMind",
-    "@SelfChosenSoul",
-    "@SelfSelectedHeart",
-    "@SelfMadeSpirit",
-    "@SelfCreatedMind",
-    "@SelfDesignedSoul",
-    "@SelfBuiltHeart",
-    "@SelfConstructedSpirit",
-    "@SelfFashionedMind",
-    "@SelfShapedSoul",
-    "@SelfMouldedHeart",
-    "@SelfFormedSpirit",
-    "@SelfDevelopedMind",
-    "@SelfGrowingSoul",
-    "@SelfEvolvingHeart",
-    "@SelfTransformingSpirit",
-    "@SelfReformingMind",
-    "@SelfImprovingSoul",
-    "@SelfEnhancingHeart",
-    "@SelfElevatingSpirit",
-    "@SelfRaisingMind",
-    "@SelfLiftingSoul",
-    "@SelfUplifitngHeart",
-    "@SelfEncouragingSpirit",
-    "@SelfMotivatingMind",
-    "@SelfInspiringSource",
-    "@SelfAnimatingHeart",
-    "@SelfActivatingSpirit",
-    "@SelfEnergivingMind",
-    "@SelfPoweringSoul",
-    "@SelfFuelingHeart",
-    "@SelfDrivingSpirit",
-    "@SelfPropelledMind",
-    "@SelfPropellingSoul",
-    "@SelfMovingHeart",
-    "@SelfShiftingSpirit",
-    "@SelfChangingMind",
-    "@SelfAlteredSoul",
-    "@SelfAdjustedHeart",
-    "@SelfTunedSpirit",
-    "@SelfCalibrationMind",
-    "@SelfCalibratedSoul",
-    "@SelfAlignedHeart",
-    "@SelfBalancedSpirit",
-    "@SelfStabilizedMind",
-    "@SelfSteadiedSoul",
-    "@SelfSecuredHeart",
-    "@SelfGroundedSpirit",
-    "@SelfAnchoredMind",
-    "@SelfRootedSoul",
-    "@SelfEstablishedHeart",
-    "@SelfFoundedSpirit",
-    "@SelfSettledMind",
-    "@SelfLocateSoul",
-    "@SelfPositionedHeart",
-    "@SelfPlacedSpirit",
-    "@SelfStandingMind",
-    "@SelfCenteredSoul",
-    "@SelfFocusedHeart",
-    "@SelfDirectedSpirit",
-    "@SelfTargetedMind",
-    "@SelfAimedSoul",
-    "@SelfGuidedHeart",
-    "@SelfOrientedSpirit",
-    "@SelfNavigatedMind",
-    "@SelfPathfindingSoul",
-    "@SelfCoursingSetting",
-    "@SelfWayMovingHeart",
-    "@SelfRouteSpirit",
-    "@SelfTrackingMind",
-    "@SelfFollowingSoul",
-    "@SelfPacingHeart",
-    "@SelfTimingSpirit",
-    "@SelfRhythmMind",
-    "@SelfBeatingSource",
-    "@SelfPulsingHeart",
-    "@SelfVibratingSpirit",
-    "@SelfResonatingMind",
-    "@SelfHarmonizingSoul",
-    "@SelfTuningHeart",
-    "@SelfSyncingSpirit",
-    "@SelfMatchingMind",
-    "@SelfPairingSoul",
-    "@SelfCouplingHeart",
-    "@SelfJoiningSpirit",
-    "@SelfLinkingMind",
-    "@SelfChainingSoul",
-    "@SelfBondingHeart",
-    "@SelfWeldingSpirit",
-    "@SelfFusingMind",
-    "@SelfMergingSoul",
-    "@SelfBlendingHeart",
-    "@SelfMixingSpirit",
-    "@SelfStirringMind",
-    "@SelfSwirlingsSoul",
-    "@SelfWhorlingingHeart",
-    "@SelfSwirlingSpiritMind",
-    "@SelfWavingMind",
-    "@SelfUndulatingSource",
-    "@SelfFlutteringHeart",
-    "@SelfFlappingSpirit",
-    "@SelfWinningMind",
-    "@SelfMovingSoaring",
-    "@SelfRisingSoul",
-    "@SelfAscendingHeart",
-    "@SelfClimbingSpirit",
-    "@SelfAscendedMind",
-    "@SelfMountingSoul",
-    "@SelfScalingHeart",
-    "@SelfHigherSpirit",
-    "@SelfLoftyMind",
-    "@SelfElevatedSoul",
-    "@SelfRaisedHeart",
-    "@SelfUplifterSpirit",
-    "@SelfLiftedMind",
-    "@SelfHoistedSoul",
-    "@SelfHauledHeart",
-    "@SelfDraggedSpirit",
-    "@SelfPulledMind",
-    "@SelfTractedSoul",
-    "@SelfDrawnHeart",
-    "@SelfAtractedSpirit",
-    "@SelfMagnetizedMind",
-    "@SelfInducedSoul",
-    "@SelfLedHeart",
-    "@SelfDirectedSpirit",
-    "@SelfGuidedMind",
-    "@SelfShowedSoul",
-    "@SelfPointedHeart",
-    "@SelfIndicatedSpirit",
-    "@SelfMarkedMind",
-    "@SelfTaggedSoul",
-    "@SelfLabeledHeart",
-    "@SelfNamedSpirit",
-    "@SelfDubbedMind",
-    "@SelfStyledSoul",
-    "@SelfTitledHeart",
-    "@SelfDesignedSpirit",
-    "@SelfFashionedMind",
-    "@SelfCraftedSoul",
-    "@SelfManufacturedHeart",
-    "@SelfProducedSpirit",
-    "@SelfMadeMind",
-    "@SelfOriginatedSoul",
-    "@SelfGeneratedHeart",
-    "@SelfCreatedSpirit",
-    "@SelfBornMind",
-    "@SelfSpawnedSoul",
-    "@SelfBroodedHeart",
-    "@SelfIncubatedSpirit",
-    "@SelfGestatedMind",
-    "@SelfConceaiveSoul",
-    "@SelfConceivedHeart",
-    "@SelfImaginedSpirit",
-    "@SelfEnvisionedMind",
-    "@SelfPicturedSoul",
-    "@SelfVisualizedHeart",
-    "@SelfImagedSpirit",
-    "@SelfFanciedMind",
-    "@SelfDreamedSoul",
-    "@SelfAspiredHeart",
-    "@SelfHopedSpirit",
-    "@SelfWishedMind",
-    "@SelfDesiredSoul",
-    "@SelfWantedHeart",
-    "@SelfCravedSpirit",
-    "@SelfHungeredMind",
-    "@SelfYearnedSoul",
-    "@SelfLongedHeart",
-    "@SelfThirstedSpirit",
-    "@SelfNeededMind",
-    "@SelfRequiredSoul",
-    "@SelfDemandedHeart",
-    "@SelfAskedSpirit",
-    "@SelfSoughtMind",
-    "@SelfSearchedSoul",
-    "@SelfQuestionedHeart",
-    "@SelfInquiredSpirit",
-    "@SelfWonderedMind",
-    "@SelfPonderedSoul",
-    "@SelfMeditatedHeart",
-    "@SelfReflectedSpirit",
-    "@SelfConsideredMind",
-    "@SelfHeededSoul",
-    "@SelfHearkenedHeart",
-    "@SelfListenedSpirit",
-    "@SelfHeardMind",
-    "@SelfCaughtSoul",
-    "@SelfSensedHeart",
-    "@SelfPerceivedSpirit",
-    "@SelfAwareMind",
-    "@SelfKnowingSoul",
-    "@SelfUnderstandingHeart",
-    "@SelfComprehendingSpirit",
-    "@SelfGraspingMind",
-    "@SelfSeizingSoul",
-    "@SelfClutchingHeart",
-    "@SelfHoldingSpirit",
-    "@SelfKeepingMind",
-    "@SelfRetainingSoul",
-    "@SelfPreservingHeart"
-];
+const rawBadges = window.GOOD_MORNING_BADGES || [];
+const usernames = rawBadges.map(function(b) {
+    return typeof b === 'string' ? b : { username: b.username || b.instagram_id || '', name: b.name || '', image: b.image || '' };
+});
 
 // ============================================
-// UTILITY: Check reduced motion preference
-// ============================================
-function prefersReducedMotion() {
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-// ============================================
-// UTILITY: Random position within box bounds
-// ============================================
-function getRandomPositionInBox(badgeWidth, badgeHeight, boxRect) {
-    const maxX = boxRect.width - badgeWidth - 20;
-    const maxY = boxRect.height - badgeHeight - 20;
-    return {
-        x: Math.random() * Math.max(maxX, 0),
-        y: Math.random() * Math.max(maxY, 0)
-    };
-}
-
-// ============================================
-// UTILITY: Clamp position to box boundaries
-// ============================================
-function clampPositionInBox(x, y, width, height, boxRect) {
-    return {
-        x: Math.max(0, Math.min(x, boxRect.width - width - 20)),
-        y: Math.max(0, Math.min(y, boxRect.height - height - 20))
-    };
-}
-
-// ============================================
-// BADGE INITIALIZATION & ANIMATION
+// BADGE INITIALIZATION (static grid, left-to-right, flow down)
 // ============================================
 function initializeBadges() {
     const $badgeLayer = $("#badge-layer");
-    const $badgeBox = $(".badge-box");
     $badgeLayer.empty();
 
-    const boxRect = {
-        width: $badgeBox.width(),
-        height: $badgeBox.height()
-    };
-
-    const badgeCount = 51; //usernames.length;
-    const reducedMotion = prefersReducedMotion();
+    const badgeCount = Math.min(usernames.length, 200);
     const selectedUsernames = usernames.slice(0, badgeCount);
 
-    selectedUsernames.forEach((username, index) => {
-        const $badge = $(`<div class="badge">${username}</div>`);
-        $badgeLayer.append($badge);
-
-        const badgeWidth = $badge.outerWidth() || 100;
-        const badgeHeight = $badge.outerHeight() || 32;
-        const initialPos = getRandomPositionInBox(badgeWidth, badgeHeight, boxRect);
-
-        $badge.css({
-            left: initialPos.x + "px",
-            top: initialPos.y + "px"
-        });
-
-        const delay = (index % 50) * 100;
-
-        if (reducedMotion) {
-            $badge.css("opacity", "0.6");
+    selectedUsernames.forEach(function(item) {
+        const isObj = typeof item === 'object';
+        const username = (isObj ? item.username : item) || '';
+        const name = isObj ? (item.name || '') : '';
+        const image = isObj ? (item.image || '') : '';
+        const searchText = (username + ' ' + name).toLowerCase();
+        let html = '';
+        if (image) {
+            html += '<img class="badge-img" src="' + image.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '" alt="">';
         } else {
-            setTimeout(() => {
-                animateBadge($badge, badgeWidth, badgeHeight, boxRect);
-            }, delay);
+            html += '<span class="badge-placeholder"></span>';
         }
+        html += '<span class="badge-text">' + (username || '').replace(/</g, '&lt;') + (name ? ' ' + name.replace(/</g, '&lt;') : '') + '</span>';
+        const $badge = $('<div class="badge' + (image ? ' has-img' : '') + '" data-search="' + searchText.replace(/"/g, '&quot;') + '">').html(html);
+        $badgeLayer.append($badge);
     });
 }
 
 // ============================================
-// BADGE ANIMATION LOOP
+// SEARCH / FILTER BADGES
 // ============================================
-function animateBadge($badge, width, height, boxRect) {
-    const newPos = getRandomPositionInBox(width, height, boxRect);
-    const clampedPos = clampPositionInBox(newPos.x, newPos.y, width, height, boxRect);
-    const duration = 3000 + Math.random() * 3000;
-
-    $badge.animate(
-        {
-            left: clampedPos.x + "px",
-            top: clampedPos.y + "px"
-        },
-        duration,
-        "linear",
-        function() {
-            const updatedBoxRect = {
-                width: $(".badge-box").width(),
-                height: $(".badge-box").height()
-            };
-            animateBadge($badge, width, height, updatedBoxRect);
-        }
-    );
+function applySearchFilter(query) {
+    const q = (query || "").trim().toLowerCase();
+    $(".badge").each(function() {
+        const text = ($(this).data("search") || $(this).text()).toLowerCase();
+        const match = !q || text.includes(q);
+        $(this).toggleClass("matched", match && q.length > 0).toggleClass("hidden", !match);
+    });
 }
 
 // ============================================
 // INITIALIZATION ON DOCUMENT READY
 // ============================================
 $(document).ready(function() {
-    initializeBadges();
+    let allUsers = [];
 
-    let resizeTimer;
-    $(window).on("resize", function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(initializeBadges, 300);
+    // Fetch user data from PHP API
+    function fetchUsers() {
+        $.ajax({
+            url: 'api.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                allUsers = data;
+                displayUsers(allUsers);
+            },
+            error: function() {
+                $('#badge-layer').html('<p>Error loading users</p>');
+            }
+        });
+    }
+
+    // Display users with rounded images
+    function displayUsers(users) {
+        const origin = window.location.origin;
+        let html = '';
+        users.forEach(user => {
+            let imgSrc = (user.image && String(user.image).trim()) ? user.image : '';
+            if (imgSrc && !/^https?:\/\//.test(imgSrc)) {
+                imgSrc = origin + (imgSrc.charAt(0) === '/' ? '' : '/') + imgSrc;
+            }
+            const imgTag = imgSrc
+                ? '<img src="' + imgSrc.replace(/"/g, '&quot;') + '" alt="" class="user-image" loading="lazy" decoding="async">'
+                : '<div class="user-image user-image-placeholder">' + (user.username ? user.username.charAt(0).toUpperCase() : '?') + '</div>';
+            const searchText = ((user.username || '') + ' ' + (user.name || '')).toLowerCase();
+            html += '<div class="user-card" data-username="' + (user.username || '').toLowerCase().replace(/"/g, '&quot;') + '" data-search="' + searchText.replace(/"/g, '&quot;') + '">' + imgTag + '</div>';
+        });
+        $('#badge-layer').html(html);
+    }
+
+    // Search and highlight matching usernames (keep all visible, only highlight matches)
+    $('#search-input').on('keyup', function() {
+        const searchTerm = $(this).val().toLowerCase().trim();
+
+        $('.user-card').each(function() {
+            const searchText = ($(this).data('search') || $(this).data('username') || '').toLowerCase();
+            const match = !searchTerm || searchText.includes(searchTerm);
+            $(this).toggleClass('highlighted', match && searchTerm.length > 0);
+        });
     });
 
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    mediaQuery.addEventListener("change", initializeBadges);
+    // Initial load
+    fetchUsers();
 });

@@ -24,43 +24,27 @@ body {
 }
 
 /* ============================================
-   ASHOKA CHAKRA (CSS-only, centered)
+   SITE LOGO
    ============================================ */
-body::before {
-    content: "";
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 250px;
-    height: 250px;
-    background: 
-        radial-gradient(circle 3px at 50% 0%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        radial-gradient(circle 3px at 93.3% 25%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        radial-gradient(circle 3px at 93.3% 75%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        radial-gradient(circle 3px at 50% 100%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        radial-gradient(circle 3px at 6.7% 75%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        radial-gradient(circle 3px at 6.7% 25%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        radial-gradient(circle 3px at 75% 50%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        radial-gradient(circle 3px at 25% 50%, rgba(0, 0, 0, 0.15) 100%, transparent 100%),
-        conic-gradient(from 0deg, transparent 0deg 10deg, rgba(0, 0, 0, 0.1) 10deg 12deg, transparent 12deg 45deg, rgba(0, 0, 0, 0.1) 45deg 47deg, transparent 47deg 360deg),
-        radial-gradient(circle at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.2) 48%, transparent 52%);
-    background-size: 250px 250px;
-    background-position: center;
-    background-repeat: no-repeat;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.08;
+.site-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 16px;
 }
 
-/* Dark overlay for readability */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.05);
-    pointer-events: none;
-    z-index: 0;
+.site-logo .logo-img {
+    max-width: 116px;
+    height: auto;
+    display: block;
+    border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+    .site-logo {
+        justify-content: flex-start;
+        padding-left: 24px;
+    }
 }
 
 /* ============================================
@@ -211,47 +195,20 @@ main {
 }
 
 /* ============================================
-   BADGE BOX CONTAINER (Full Width with Tricolor)
+   BADGE BOX CONTAINER
    ============================================ */
 .badge-box {
-    width: 100%;
-    min-height: 500px;
-    max-height: 70vh;
-    position: relative;
-    background: linear-gradient(180deg, 
-        #ffd699 0%, 
-        #ffd699 33.33%, 
-        #ffffff 33.33%, 
-        #ffffff 66.66%, 
-        #9cd99e 66.66%, 
-        #9cd99e 100%);
-    border: none;
-    border-radius: 0;
-    padding: 20px;
-    box-shadow: 
-        inset 0 10px 20px rgba(0, 0, 0, 0.1),
-        inset 0 -10px 20px rgba(0, 0, 0, 0.05);
-    backdrop-filter: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+    gap: 1px;
+    padding: 16px;
+    max-width: 100%;
+    margin: 16px auto;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     overflow-y: auto;
     overflow-x: hidden;
-}
-
-/* 3D Effect on middle stripe */
-.badge-box::before {
-    content: "";
-    position: absolute;
-    top: 33.33%;
-    left: 0;
-    right: 0;
-    height: 33.34%;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0) 50%,
-        rgba(0, 0, 0, 0.1) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
 }
 
 /* ============================================
@@ -276,26 +233,20 @@ main {
 }
 
 /* ============================================
-   BADGE LAYER (Inside badge-box)
+   BADGE LAYER (left-to-right, flow down)
    ============================================ */
 #badge-layer {
-    position: relative;
-    pointer-events: none;
-    z-index: 10;
-    width: 100%;
-    height: auto;
-    min-height: 100%;
+    display: contents;
 }
 
 .badge {
-    position: absolute;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     background: rgba(255, 255, 255, 0.92);
     border: 1.5px solid rgba(31, 65, 168, 0.2);
     border-radius: 20px;
-    padding: 6px 12px;
+    padding: 4px 10px;
     font-size: clamp(11px, 2.5vw, 13px);
     font-weight: 600;
     color: #1f41a8;
@@ -303,23 +254,78 @@ main {
     backdrop-filter: blur(8px);
     white-space: nowrap;
     user-select: none;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .badge:hover {
-    transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(31, 65, 168, 0.15);
     border-color: rgba(31, 65, 168, 0.4);
 }
 
-.badge::before {
-    content: "";
+.badge-img {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.badge-placeholder {
     display: inline-block;
-    width: 6px;
-    height: 6px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: #138808;
     flex-shrink: 0;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    contain: layout style;
+    content-visibility: auto;
+    min-height: 68px;
+}
+
+.user-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e5e7eb;
+    display: block;
+}
+
+.user-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+    font-size: 24px;
+    font-weight: 600;
+    color: #4f46e5;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+    word-break: break-word;
+}
+
+.user-card.highlighted .user-image {
+    border: 2px solid #e1306c;
+    box-shadow: 0 0 0 2px #405de6, 0 0 12px rgba(225, 48, 108, 0.5);
+    animation: instagramZoom 0.4s ease-out;
+}
+
+@keyframes instagramZoom {
+    0% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 
 /* ============================================
@@ -334,19 +340,6 @@ main {
     background: rgba(31, 65, 168, 0.12) !important;
     border-color: #1f41a8 !important;
     box-shadow: 0 4px 20px rgba(31, 65, 168, 0.25) !important;
-    animation: highlightPulse 0.5s ease;
-}
-
-@keyframes highlightPulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.08);
-    }
-    100% {
-        transform: scale(1);
-    }
 }
 
 /* ============================================
@@ -447,7 +440,6 @@ main {
     }
 
     .badge:hover {
-        transform: translateY(-3px);
         box-shadow: 0 6px 24px rgba(31, 65, 168, 0.2) !important;
     }
 }

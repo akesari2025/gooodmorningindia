@@ -1,0 +1,10 @@
+<?php
+/**
+ * Copy this file to config.local.php and update with your MySQL credentials
+ */
+return [
+    'host'     => 'localhost',
+    'database' => 'gooodmorningindia',
+    'username' => 'your_username',
+    'password' => 'your_password',
+];
