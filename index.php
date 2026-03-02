@@ -47,6 +47,9 @@ try {
         <div class="hero-card">
             <h1>Good Morning India</h1>
             <p class="subtitle">Follow. Featured. Win. <span class="flag-emoji">🎁☕️</span></p>
+            <nav class="main-nav">
+                <a href="winners.php">Winners</a>
+            </nav>
         </div>
 
         <!-- Search Field -->
@@ -65,6 +68,10 @@ try {
         <div class="badge-box">
             <div id="badge-layer"></div>
         </div>
+
+        <footer class="site-footer">
+            <a href="rules.php">Rules & Terms</a>
+        </footer>
     </main>
 
     <!-- jQuery CDN -->

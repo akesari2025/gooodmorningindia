@@ -25,10 +25,33 @@ try {
         echo "<p>Schema already up to date. No migration needed.</p>";
     }
 
+    // Add UNIQUE constraint on username if not present
+    try {
+        $indexes = $pdo->query("SHOW INDEX FROM followers WHERE Column_name = 'username' AND Non_unique = 0")->fetchAll();
+        if (empty($indexes)) {
+            $pdo->exec("ALTER TABLE followers ADD UNIQUE KEY unique_username (username)");
+            echo "<p>Added UNIQUE constraint on username.</p>";
+        }
+    } catch (PDOException $e) {
+        echo "<p>Note: Could not add unique constraint (duplicates may exist): " . htmlspecialchars($e->getMessage()) . "</p>";
+    }
+
     if (!is_dir(__DIR__ . '/uploads')) {
         mkdir(__DIR__ . '/uploads', 0755, true);
         echo "<p>Created uploads directory.</p>";
     }
+
+    try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS daily_winners (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL,
+            name VARCHAR(255) DEFAULT NULL,
+            image VARCHAR(255) DEFAULT NULL,
+            winner_date DATE NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )");
+        echo "<p>daily_winners table ready.</p>";
+    } catch (PDOException $e) { /* table may exist */ }
 
     echo "<p><a href='admin/dashboard.php'>Go to Dashboard</a></p>";
 } catch (PDOException $e) {

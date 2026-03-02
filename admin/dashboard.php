@@ -16,32 +16,10 @@ if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
 
-// Handle delete (single or bulk)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $ids = [];
-    if (isset($_POST['delete_single']) && is_numeric($_POST['delete_single'])) {
-        $ids = [(int) $_POST['delete_single']];
-    } elseif (!empty($_POST['delete_ids']) && is_array($_POST['delete_ids'])) {
-        $ids = array_filter(array_map('intval', $_POST['delete_ids']));
-    }
-    if (!empty($ids)) {
-        try {
-            $placeholders = implode(',', array_fill(0, count($ids), '?'));
-            $stmt = $pdo->prepare("DELETE FROM followers WHERE id IN ($placeholders)");
-            $stmt->execute($ids);
-            $n = $stmt->rowCount();
-            $message = $n === 1 ? '1 follower deleted.' : $n . ' followers deleted.';
-            $messageType = 'success';
-        } catch (PDOException $e) {
-            $message = 'Failed to delete.';
-            $messageType = 'error';
-        }
-    }
-}
-
 // Handle add form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
-    $username = trim($_POST['username'] ?? '');
+    $usernameRaw = trim($_POST['username'] ?? '');
+    $username = strtolower(ltrim($usernameRaw, '@'));
     $name = trim($_POST['name'] ?? '');
     $imagePath = null;
 
@@ -73,13 +51,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
 
         if ($messageType !== 'error') {
             try {
+                $stmt = $pdo->prepare("SELECT id FROM followers WHERE LOWER(TRIM(BOTH '@' FROM username)) = ?");
+                $stmt->execute([$username]);
+                if ($stmt->fetch()) {
+                    $message = 'This username already exists. User IDs must be unique.';
+                    $messageType = 'error';
+                } else {
                 $stmt = $pdo->prepare("INSERT INTO followers (username, name, image) VALUES (?, ?, ?)");
                 $stmt->execute([$username, $name ?: null, $imagePath]);
-                $message = 'User "' . htmlspecialchars($username) . '" saved successfully.';
+                $message = 'User "@' . htmlspecialchars($username) . '" saved successfully.';
                 $messageType = 'success';
+                }
             } catch (PDOException $e) {
                 if ($e->getCode() == 23000) {
-                    $message = 'This username may already exist.';
+                    $message = 'This username already exists. User IDs must be unique.';
                 } else {
                     $message = 'Failed to save. Please try again.';
                 }
@@ -93,12 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
 $recent = [];
 try {
     $cols = ['id', 'username', 'name', 'image', 'created_at'];
-    $stmt = $pdo->query("SELECT " . implode(', ', $cols) . " FROM followers ORDER BY created_at DESC LIMIT 50");
+    $stmt = $pdo->query("SELECT " . implode(', ', $cols) . " FROM followers ORDER BY created_at DESC LIMIT 100");
     $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     // Fallback for old schema
     try {
-        $stmt = $pdo->query("SELECT id, instagram_id as username, created_at FROM followers ORDER BY created_at DESC LIMIT 50");
+        $stmt = $pdo->query("SELECT id, instagram_id as username, created_at FROM followers ORDER BY created_at DESC LIMIT 100");
         $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e2) {
         $message = 'Could not load followers.';
@@ -175,6 +160,9 @@ try {
         <div class="admin-header">
             <h1>Admin Dashboard</h1>
             <div class="admin-actions">
+                <a href="manage-followers.php">Manage Followers</a>
+                <a href="pick-winner.php">Pick Random Winner</a>
+                <a href="../winners.php">Winners</a>
                 <a href="../index.php">View Site</a>
                 <a href="../logout.php">Logout</a>
             </div>
@@ -219,56 +207,28 @@ try {
         </div>
 
         <div class="card">
-            <h2>Recent Followers (last 50)</h2>
+            <h2>Recent Followers (last 100)</h2>
             <?php if (empty($recent)): ?>
                 <p style="color:#888; padding:16px;">No followers added yet.</p>
             <?php else: ?>
-                <?php foreach ($recent as $row): ?>
-                <form id="single-del-<?= (int) $row['id'] ?>" method="post" style="display:none">
-                    <input type="hidden" name="delete_single" value="<?= (int) $row['id'] ?>">
-                </form>
-                <?php endforeach; ?>
-                <form method="post" action="" id="delete-form">
-                    <div class="follower-list-header">
-                        <label>
-                            <input type="checkbox" id="select-all" title="Select all">
-                            Select all
-                        </label>
-                        <button type="submit" name="delete_selected" class="btn-delete">Delete Selected</button>
-                    </div>
-                    <div class="follower-list">
-                        <?php foreach ($recent as $row): ?>
-                            <div class="follower-item">
-                                <input type="checkbox" name="delete_ids[]" value="<?= (int) $row['id'] ?>" class="row-check">
-                                <?php if (!empty($row['image'])): ?>
-                                    <img src="../<?= htmlspecialchars($row['image']) ?>" alt="">
-                                <?php else: ?>
-                                    <div class="avatar-placeholder"><?= strtoupper(mb_substr($row['username'] ?? '', 0, 1)) ?: '?' ?></div>
+                <div class="follower-list">
+                    <?php foreach ($recent as $row): ?>
+                        <div class="follower-item">
+                            <?php if (!empty($row['image'])): ?>
+                                <img src="../<?= htmlspecialchars($row['image']) ?>" alt="">
+                            <?php else: ?>
+                                <div class="avatar-placeholder"><?= strtoupper(mb_substr($row['username'] ?? '', 0, 1)) ?: '?' ?></div>
+                            <?php endif; ?>
+                            <div class="follower-info">
+                                <span class="follower-username"><?= htmlspecialchars($row['username']) ?></span>
+                                <?php if (!empty($row['name'])): ?>
+                                    <span class="follower-name"> — <?= htmlspecialchars($row['name']) ?></span>
                                 <?php endif; ?>
-                                <div class="follower-info">
-                                    <span class="follower-username"><?= htmlspecialchars($row['username']) ?></span>
-                                    <?php if (!empty($row['name'])): ?>
-                                        <span class="follower-name"> — <?= htmlspecialchars($row['name']) ?></span>
-                                    <?php endif; ?>
-                                </div>
-                                <span class="follower-date"><?= date('M j, Y', strtotime($row['created_at'] ?? 'now')) ?></span>
-                                <div class="follower-actions">
-                                    <button type="submit" form="single-del-<?= (int) $row['id'] ?>" class="btn-delete-small" onclick="return confirm('Delete this follower?');">Delete</button>
-                                </div>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
-                </form>
-                <script>
-                    document.getElementById('select-all').addEventListener('change', function() {
-                        document.querySelectorAll('.row-check').forEach(function(cb) { cb.checked = this.checked; }, this);
-                    });
-                    document.getElementById('delete-form').addEventListener('submit', function(e) {
-                        var checked = document.querySelectorAll('.row-check:checked');
-                        if (checked.length === 0) { e.preventDefault(); alert('Select at least one follower to delete.'); }
-                        else if (!confirm('Delete ' + checked.length + ' follower(s)?')) e.preventDefault();
-                    });
-                </script>
+                            <span class="follower-date"><?= date('M j, Y', strtotime($row['created_at'] ?? 'now')) ?></span>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             <?php endif; ?>
         </div>
     </div>

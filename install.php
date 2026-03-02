@@ -20,7 +20,7 @@ try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS followers (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(255) NOT NULL,
+            username VARCHAR(255) NOT NULL UNIQUE,
             name VARCHAR(255) DEFAULT NULL,
             image VARCHAR(255) DEFAULT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -52,6 +52,16 @@ try {
             id INT AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(50) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ");
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS daily_winners (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL,
+            name VARCHAR(255) DEFAULT NULL,
+            image VARCHAR(255) DEFAULT NULL,
+            winner_date DATE NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ");
