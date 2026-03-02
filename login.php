@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | Good Morning India</title>
+    <title>Admin Login | Goood Morning India</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .login-container { max-width: 400px; margin: 80px auto; padding: 32px; background: rgba(255,255,255,0.95); border-radius: 16px; box-shadow: 0 8px 32px rgba(31,65,168,0.15); }

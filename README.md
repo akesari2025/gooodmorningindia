@@ -1,4 +1,4 @@
-# Good Morning India
+# Goood Morning India
 
 A PHP application with an admin panel to manage Instagram follower IDs displayed as badges on the main page.
 

@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['winner_date'])) {
                 $winner = $existing;
                 $isExistingWinner = true;
                 $displayName = trim($winner['name'] ?? $winner['username']) ?: $winner['username'];
-                $message = 'Winner of the day is ' . htmlspecialchars($displayName);
+                $message = '🎉 Winner of the day is ' . htmlspecialchars($displayName) . ' 🏆🎊';
                 $messageType = 'success';
             } else {
                 // Pick new random winner from followers
@@ -114,8 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['winner_date'])) {
     <?php if ($winner): ?>
     <div id="countdown-overlay" class="countdown-overlay">
         <div class="countdown-content">
-            <img src="../images/gooodmorningindia_logo.png" alt="Good Morning India" class="countdown-logo">
-            <h2 class="countdown-title">Good Morning India</h2>
+            <img src="../images/gooodmorningindia_logo.png" alt="Goood Morning India" class="countdown-logo">
+            <h2 class="countdown-title">Goood Morning India</h2>
             <div class="countdown-label">Selecting random winner…</div>
             <div id="countdown-number" class="countdown-number">30</div>
             <div class="countdown-subtext">seconds</div>
@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['winner_date'])) {
         </div>
         <div class="page-header">
             <h1>Pick Random Winner</h1>
-            <p style="color:#6b7280;margin:0">Choose a date and randomly select a winner from all users.</p>
+            <p style="color:#6b7280;margin:0">Let our AI work its magic — one tap, one lucky winner! ✨🏆</p>
         </div>
 
         <?php if ($message): ?>
@@ -137,18 +137,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['winner_date'])) {
         <?php endif; ?>
 
         <div class="card">
-            <h2>Select Winner Date</h2>
+            <h2>We are announcing our today's winner</h2>
             <form method="post">
-                <div class="form-group">
-                    <label for="winner_date">Date</label>
-                    <input type="date" id="winner_date" name="winner_date" value="<?= htmlspecialchars($_POST['winner_date'] ?? date('Y-m-d')) ?>" required>
-                </div>
+                <p class="today-date" style="font-size:15px;font-weight:600;color:#1f41a8;margin:0 0 20px 0;"><?= date('l, F j, Y') ?></p>
+                <input type="hidden" name="winner_date" value="<?= date('Y-m-d') ?>">
                 <button type="submit" class="btn">Select Random Winner</button>
             </form>
 
             <?php if ($winner): ?>
                 <div id="winner-box" class="winner-box initially-hidden">
-                    <h3><?= $isExistingWinner ? 'Winner of the day' : '🎉 Congratulations!' ?></h3>
+                    <h3><?= $isExistingWinner ? '🏆 Winner of the day 🎉🎊' : '🎉 Congratulations! 🏆🎊' ?></h3>
                     <?php if (!empty($winner['image'])): ?>
                         <?php $imgUrl = (strpos($winner['image'], 'http') === 0) ? $winner['image'] : $baseUrl . ltrim($winner['image'], '/'); ?>
                         <img src="<?= htmlspecialchars($imgUrl) ?>" alt="" class="winner-photo">

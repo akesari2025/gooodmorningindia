@@ -1,6 +1,6 @@
 <?php
 /**
- * Database configuration for Good Morning India
+ * Database configuration for Goood Morning India
  * Copy this file to config.local.php and update credentials
  */
 

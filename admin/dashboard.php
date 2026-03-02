@@ -102,7 +102,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Good Morning India</title>
+    <title>Admin Dashboard | Goood Morning India</title>
     <link rel="stylesheet" href="../styles.css">
     <style>
         body { background: linear-gradient(135deg, #f0f4ff 0%, #e8eef8 100%); min-height: 100vh; }

@@ -1,4 +1,4 @@
--- Good Morning India - MySQL Schema
+-- Goood Morning India - MySQL Schema
 -- Run this manually OR use install.php for automatic setup
 
 CREATE DATABASE IF NOT EXISTS your_database_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

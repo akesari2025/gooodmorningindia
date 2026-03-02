@@ -242,7 +242,7 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
     gap: 1px;
-    padding: 16px;
+    padding: 8px;
     max-width: 100%;
     margin: 16px auto;
     background: #f8f9fa;
@@ -482,6 +482,11 @@ main {
 
     .badge:hover {
         box-shadow: 0 6px 24px rgba(31, 65, 168, 0.2) !important;
+    }
+
+    .user-card {
+        height: 68px;
+        min-height: unset;
     }
 }
 
